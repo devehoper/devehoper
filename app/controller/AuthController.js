@@ -59,7 +59,10 @@ export default class AuthController extends Controller {
                     password: formData.password
                 }),
                 success: (response) => {
-                    this.userModel.fromJson(response);
+                    // Assuming the registration response has the same structure as login
+                    this.userModel.fromJson(response.data);
+                    Model.setLocalData(this.userModel.toJson());
+                    window.location.hash = "#UserController?index"; // Redirect to user page
                 },
            });
         }
@@ -86,7 +89,11 @@ export default class AuthController extends Controller {
                 method: "POST",
                 data: JSON.stringify(formData),
                 success: (response) => {
-                    this.userModel.fromJson(response);
+                    this.userModel.fromJson(response.data);
+                    Model.setLocalData(this.userModel.toJson());
+                    $(document).trigger('login-success'); // Notify UI to update
+                    $('#genericModal').modal('hide'); // Close the modal
+                    window.location.hash = "#StaffController?index"; // Redirect to user page
                 },
            });
         }

@@ -44,9 +44,12 @@ class UserModel extends Model {
   }
 
   fromJson(data) {
-    this.name = data?.user?.name || "";
-    this.email = data?.user?.email || "";
-    this.loginToken = data?.token || "";
+    // this.name = data?.user?.username || "";
+    // this.email = data?.user?.email || "";
+    // this.loginToken = data?.access_token || "";
+    this.name = data.user.username;
+    this.email = data.user.email;
+    this.loginToken = data.access_token;
   }
 
   isAuthenticated() {

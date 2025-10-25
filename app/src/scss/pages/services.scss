@@ -1,0 +1,90 @@
+#services {
+    /* Base styles for the cheese wheel container can be added here if needed */
+    .cheese-wheel-container {
+        /* e.g., margin-top: 50px; */
+    }
+
+    .cheese-wheel {
+        position: relative;
+        width: 90vw;      /* Use viewport width for responsiveness */
+        max-width: 350px; /* Cap the size on larger screens */
+        aspect-ratio: 1 / 1; /* Maintain a circle shape (height = width) */
+        border-radius: 50%;
+        overflow: hidden; /* This is key to making the slices appear as a circle */
+    }
+
+    .cheese-core {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 28%; /* Make core size relative to the wheel (100px / 350px) */
+        height: 28%;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+        font-size: 2.5rem;
+    }
+
+    /* --- 6-SLICE METHOD (Triangle + Rotation) --- */
+    
+    /* Base 60-degree triangle clip for all slices */
+    .base-slice {
+        clip-path: polygon(50% 50%, 50% 0%, 93.3% 25%); /* A 60-degree wedge pointing up-right */
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .cheese-slice {
+        @extend .base-slice;
+        background-color: #f8f9fa; /* Default slice color */
+        &:hover {
+            background-color: #e9ecef; /* Hover slice color */
+        }
+    }
+
+    /* Rotate each slice into its correct position */
+    .slice-1 { transform: rotate(-30deg); }
+    .slice-2 { transform: rotate(30deg);  }
+    .slice-3 { transform: rotate(90deg);  }
+    .slice-4 { transform: rotate(150deg); }
+    .slice-5 { transform: rotate(210deg); }
+    .slice-6 { transform: rotate(270deg); }
+    
+    /* Position and counter-rotate the content (icon and text) within each slice */
+    .cheese-slice i, .cheese-slice .slice-name {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 1.2rem; /* Adjust base font size */
+        color: #495057;
+    }
+
+    /* Use a loop to generate slice content transforms */
+    @for $i from 1 through 6 {
+        $angle: 60deg * $i - 30deg;
+        .slice-#{$i} i, .slice-#{$i} .slice-name {
+            /* Use a relative unit (percentage) for positioning */
+            transform: rotate($angle) translateY(-24%) rotate(-$angle);
+        }
+    }
+
+    /* Media query for smaller screens */
+    @media (max-width: 380px) {
+        .cheese-slice i, .cheese-slice .slice-name {
+            font-size: 1rem; /* Smaller font for smaller wheels */
+        }
+        .slice-name { display: none; } /* Hide text on very small screens to avoid clutter */
+    }
+}

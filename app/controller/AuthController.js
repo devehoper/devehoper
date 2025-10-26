@@ -81,21 +81,26 @@ export default class AuthController extends Controller {
         };
 
         const errors = Model.validateData(formData, rules);
-        if (Object.keys(errors).length > 0) {
-            Model.displayValidationErrors(errors, 'invalid-feedback', 'signin-');
-        } else {
-           app.request({
-                url: this.userModel.api.login,
-                method: "POST",
-                data: JSON.stringify(formData),
-                success: (response) => {
-                    this.userModel.fromJson(response.data);
-                    Model.setLocalData(this.userModel.toJson());
-                    $(document).trigger('login-success'); // Notify UI to update
-                    $('#genericModal').modal('hide'); // Close the modal
-                    window.location.hash = "#StaffController?index"; // Redirect to user page
-                },
-           });
-        }
+
+        grecaptcha.ready(function() {
+          grecaptcha.execute(userConfig.keys.recaptchaSiteKey, {action: 'submit'}).then(function(token) {
+            if (Object.keys(errors).length > 0) {
+                Model.displayValidationErrors(errors, 'invalid-feedback', 'signin-');
+            } else {
+            app.request({
+                    url: this.userModel.api.login,
+                    method: "POST",
+                    data: JSON.stringify(formData),
+                    success: (response) => {
+                        this.userModel.fromJson(response.data);
+                        Model.setLocalData(this.userModel.toJson());
+                        $(document).trigger('login-success'); // Notify UI to update
+                        $('#genericModal').modal('hide'); // Close the modal
+                        window.location.hash = "#StaffController?index"; // Redirect to user page
+                    },
+            });
+            }
+          });
+        });
     }
 }

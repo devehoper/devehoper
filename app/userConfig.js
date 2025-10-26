@@ -6,6 +6,9 @@ const userConfig = {
     defaultLanguage: "pt", // Default language
     localStorage: "devehoper", // Local storage key
     appContainerSelector: "#devehoper", // Wrappper that contains all the app content
+    keys: {
+        recaptchaSiteKey: "6Leq8fcrAAAAAIwWTGHt3J23q7J-eqNENKRNx2yg" // reCAPTCHA site key
+    },
 
     useVue: false,
 

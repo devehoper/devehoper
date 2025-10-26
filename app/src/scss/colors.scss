@@ -1,11 +1,36 @@
 // Color variables
-$default: (
-  primary: #007bff,
-  secondary: #6c757d,
-  success: #28a745,
-  danger: #dc3545,
-  warning: #ffc107,
-  info: #17a2b8,
-  light: #f8f9fa,
-  dark: #343a40
+// A map containing all theme palettes.
+$themes: (
+  default: (
+    primary: #007bff,
+    secondary: #6c757d,
+    success: #28a745,
+    danger: #dc3545,
+    warning: #ffc107,
+    info: #17a2b8,
+    light: #f8f9fa,
+    dark: #343a40,
+    // Semantic UI colors
+    text: #212529,
+    background: #f8f9fa, // Was #ffffff, changed to match original theme
+    "background-body": #ffffff,
+    "modal-border": #343a40,
+    "selection-bg": "#d3d3d3"
+  ),
+  dark: (
+    primary: #0d6efd,
+    secondary: #6c757d,
+    success: #198754,
+    danger: #dc3545,
+    warning: #ffc107,
+    info: #0dcaf0,
+    light: #adb5bd,
+    dark: #f8f9fa,
+    // Semantic UI colors
+    text: #dee2e6,
+    background: #212529,
+    "background-body": #212529,
+    "modal-border": #dee2e6,
+    "selection-bg": "#495057"
+  )
 );

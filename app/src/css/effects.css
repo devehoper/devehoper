@@ -14,13 +14,13 @@
 }
 
 .neon-effect {
-  color: #007bff;
-  text-shadow: 0 0 5px #007bff, 0 0 10px #007bff;
+  color: var(--feigniter-primary);
+  text-shadow: 0 0 5px var(--feigniter-primary), 0 0 10px var(--feigniter-primary);
 }
 
 .glitch-effect {
   position: relative;
-  color: #dc3545;
+  color: var(--feigniter-danger);
 }
 .glitch-effect::before, .glitch-effect::after {
   content: attr(data-text);
@@ -30,12 +30,12 @@
   opacity: 0.8;
 }
 .glitch-effect::before {
-  color: #28a745;
+  color: var(--feigniter-success);
   left: 2px;
   animation: glitch 0.3s infinite;
 }
 .glitch-effect::after {
-  color: #ffc107;
+  color: var(--feigniter-warning);
   left: -2px;
   animation: glitch 0.3s infinite reverse;
 }

@@ -14,13 +14,13 @@
 }
 
 .neon-effect {
-  color: #007bff;
-  text-shadow: 0 0 5px #007bff, 0 0 10px #007bff;
+  color: var(--feigniter-primary);
+  text-shadow: 0 0 5px var(--feigniter-primary), 0 0 10px var(--feigniter-primary);
 }
 
 .glitch-effect {
   position: relative;
-  color: #dc3545;
+  color: var(--feigniter-danger);
 }
 .glitch-effect::before, .glitch-effect::after {
   content: attr(data-text);
@@ -30,12 +30,12 @@
   opacity: 0.8;
 }
 .glitch-effect::before {
-  color: #28a745;
+  color: var(--feigniter-success);
   left: 2px;
   animation: glitch 0.3s infinite;
 }
 .glitch-effect::after {
-  color: #ffc107;
+  color: var(--feigniter-warning);
   left: -2px;
   animation: glitch 0.3s infinite reverse;
 }
@@ -142,10 +142,44 @@
 /* ==========================
    VARIABLES & THEMES
 ========================== */
+.theme-default {
+  --feigniter-primary: #007bff;
+  --feigniter-secondary: #6c757d;
+  --feigniter-success: #28a745;
+  --feigniter-danger: #dc3545;
+  --feigniter-warning: #ffc107;
+  --feigniter-info: #17a2b8;
+  --feigniter-light: #f8f9fa;
+  --feigniter-dark: #343a40;
+  --feigniter-text: #212529;
+  --feigniter-background: #f8f9fa;
+  --feigniter-background-body: #ffffff;
+  --feigniter-modal-border: #343a40;
+  --feigniter-selection-bg: #d3d3d3;
+}
+
+.theme-dark {
+  --feigniter-primary: #0d6efd;
+  --feigniter-secondary: #6c757d;
+  --feigniter-success: #198754;
+  --feigniter-danger: #dc3545;
+  --feigniter-warning: #ffc107;
+  --feigniter-info: #0dcaf0;
+  --feigniter-light: #adb5bd;
+  --feigniter-dark: #f8f9fa;
+  --feigniter-text: #dee2e6;
+  --feigniter-background: #212529;
+  --feigniter-background-body: #212529;
+  --feigniter-modal-border: #dee2e6;
+  --feigniter-selection-bg: #495057;
+}
+
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
+  color: var(--feigniter-text);
+  background-color: var(--feigniter-background-body);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
@@ -218,7 +252,41 @@ html, body {
  */
 .invalid-feedback[id$=-error] {
   font-weight: 500;
-  color: #dc3545 !important; /* Bootstrap's danger color, with !important to win */
+  color: var(--feigniter-danger) !important; /* Use CSS var for danger color */
+}
+
+/* ==========================================================================
+   THEME-AWARE GLOBAL STYLES
+   This section restores the broad application of theme colors from the
+   original theme files, but uses the modern CSS variable approach.
+   ========================================================================== */
+section, article, aside, header, footer, main, nav, ul, ol, li, pre, code, blockquote, figure, figcaption, div {
+  background-color: var(--feigniter-background);
+  color: var(--feigniter-text);
+}
+
+a {
+  color: var(--feigniter-text);
+}
+
+::selection {
+  background-color: var(--feigniter-selection-bg);
+  color: var(--feigniter-text);
+}
+
+table, thead, tbody, tfoot, tr, td, th {
+  background-color: var(--feigniter-background);
+  color: var(--feigniter-text);
+}
+
+/*
+ * Theme-aware component styles
+ */
+#genericModal .modal-content {
+  background-color: var(--feigniter-background);
+  color: var(--feigniter-text);
+  border: 2px solid var(--feigniter-modal-border);
+  opacity: 0.9;
 }
 
 header .active {

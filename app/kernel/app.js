@@ -333,17 +333,21 @@ async loadController(controller, method, args) {
     });
   }
 
+  /**
+   * Sets the application theme by changing the class on the body element.
+   * This function relies on a single, pre-compiled CSS file that contains all theme definitions.
+   * @param {string} [theme] - The name of the theme to apply (e.g., 'theme-dark'). If not provided, it falls back to localStorage or the default theme.
+   */
   setTheme(theme) {
     $(document).ready(() => {
-      let themes = userConfig.themes ?? config.themes;
-      theme = theme || this.data?.theme || (userConfig.defaultTheme ?? config.defaultTheme);
+      const themes = userConfig.themes ?? config.themes;
+      const newTheme = theme || this.data?.theme || (userConfig.defaultTheme ?? config.defaultTheme);
 
-      Controller.unloadCSS();
-      Controller.loadCss(`app/src/css/themes/${theme}/${theme}.css`);
+      // Persist the chosen theme to local storage for future visits.
+      Model.setLocalData({ theme: newTheme });
 
-      Model.setLocalData({ theme });
-
-      $("body").removeClass(themes.join(" ")).addClass(theme);
+      // Efficiently remove any existing theme classes and add the new one.
+      $("body").removeClass(themes.join(" ")).addClass(newTheme);
     });
   }
 

@@ -1,4 +1,3 @@
-@use 'colors.scss';
 /* ==========================
    MIXINS
 ========================== */
@@ -36,14 +35,14 @@
   
   // Neon Glow
   .neon-effect {
-    color: map-get(colors.$default, primary);
-    text-shadow: 0 0 5px map-get(colors.$default, primary), 0 0 10px map-get(colors.$default, primary);
+    color: var(--feigniter-primary);
+    text-shadow: 0 0 5px var(--feigniter-primary), 0 0 10px var(--feigniter-primary);
   }
   
   // Glitch Effect
   .glitch-effect {
     position: relative;
-    color: map-get(colors.$default, danger);
+    color: var(--feigniter-danger);
     &::before,
     &::after {
       content: attr(data-text);
@@ -53,12 +52,12 @@
       opacity: 0.8;
     }
     &::before {
-      color: map-get(colors.$default, success);
+      color: var(--feigniter-success);
       left: 2px;
       animation: glitch 0.3s infinite;
     }
     &::after {
-      color: map-get(colors.$default, warning);
+      color: var(--feigniter-warning);
       left: -2px;
       animation: glitch 0.3s infinite reverse;
     }

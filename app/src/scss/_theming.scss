@@ -1,0 +1,18 @@
+@use "sass:map";
+@use "colors";
+
+/// Generates CSS custom properties for each theme defined in the $themes map.
+/// This allows for instant theme switching in the browser by changing the class on the body.
+@mixin apply-themes {
+  // Loop through each theme in our global map
+  @each $theme-name, $theme-map in colors.$themes {
+    // Create a class selector like .theme-default, .theme-dark
+    .theme-#{$theme-name} {
+      // Loop through the colors in the theme and create CSS variables
+      @each $key, $value in $theme-map {
+        --feigniter-#{$key}: #{$value};
+      }
+    }
+  }
+}
+

@@ -76,11 +76,11 @@ class Header {
 
     setActiveMenuItem(index) {
         $(document).ready(() => {
-            let menuIndex = typeof index === 'number' ? index : $(".header-item.active").data('index');
-            $('.header-item').removeClass('active');
-            $(".header-item")
+            let menuIndex = typeof index === 'number' ? index : $(".header-item").data('index');
+            $('.text-secondary').removeClass('text-secondary');
+            $(".header-item a")
             .eq(menuIndex)
-            .addClass("active");
+            .addClass("text-secondary");
         } );
     }
 }

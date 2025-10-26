@@ -1,17 +1,23 @@
 
 @use './colors.scss';
 @use './effects.scss';
+@use './theming';
 /* ==========================
    VARIABLES & THEMES
 ========================== */
 
-$default-theme: "theme-default" !default;
-
+// This single mixin call generates all theme classes (.theme-default, .theme-dark)
+// and their corresponding CSS variables.
+@include theming.apply-themes;
 
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
+  // Apply base colors using CSS variables. These will automatically update
+  // when the theme class on the body changes.
+  color: var(--feigniter-text);
+  background-color: var(--feigniter-background-body);
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
 }
 
@@ -83,5 +89,42 @@ html, body {
  */
 .invalid-feedback[id$="-error"] {
   font-weight: 500;
-  color:  map-get(colors.$default, danger) !important; /* Bootstrap's danger color, with !important to win */
+  color:  var(--feigniter-danger) !important; /* Use CSS var for danger color */
+}
+
+/* ==========================================================================
+   THEME-AWARE GLOBAL STYLES
+   This section restores the broad application of theme colors from the
+   original theme files, but uses the modern CSS variable approach.
+   ========================================================================== */
+
+section, article, aside, header, footer, main, nav, ul, ol, li, pre, code, blockquote, figure, figcaption, div {
+  background-color: var(--feigniter-background);
+  color: var(--feigniter-text);
+}
+
+a {
+  color: var(--feigniter-text);
+}
+
+::selection {
+  background-color: var(--feigniter-selection-bg);
+  color: var(--feigniter-text);
+}
+
+table, thead, tbody, tfoot, tr, td, th {
+  background-color: var(--feigniter-background);
+  color: var(--feigniter-text);
+}
+
+/*
+ * Theme-aware component styles
+ */
+#genericModal {
+  .modal-content {
+    background-color: var(--feigniter-background);
+    color: var(--feigniter-text);
+    border: 2px solid var(--feigniter-modal-border);
+    opacity: 0.9;
+  }
 }

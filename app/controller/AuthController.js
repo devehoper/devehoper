@@ -29,6 +29,20 @@ export default class AuthController extends Controller {
             e.preventDefault();
             this.handleRegister();
         });
+
+        // Listen for Bootstrap tab change events within the modal
+        $('#genericModal').on('shown.bs.tab', 'a[data-bs-toggle="tab"]', function (e) {
+            // The `e.target` is the tab that was just shown
+            if ($(e.target).attr('href') === '#signin') {
+                $('body').addClass('recaptcha-active');
+            } else {
+                $('body').removeClass('recaptcha-active');
+            }
+        });
+
+        $('#genericModal').on('hidden.bs.modal', function () {
+            $('body').removeClass('recaptcha-active');
+        });
     }
 
     handleRegister() {

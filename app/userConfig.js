@@ -7,7 +7,11 @@ const userConfig = {
     localStorage: "devehoper", // Local storage key
     appContainerSelector: "#devehoper", // Wrappper that contains all the app content
     keys: {
-        recaptchaSiteKey: "6Leq8fcrAAAAAIwWTGHt3J23q7J-eqNENKRNx2yg" // reCAPTCHA site key
+        // IMPORTANT: Replace the key below with the reCAPTCHA v3 Site Key from your Google Admin Console.
+        // The old key "AIza..." is invalid. A correct key starts with "6L...".
+        // You must replace this placeholder with your actual key.
+        recaptchaSiteKey: "6Leq8fcrAAAAAIwWTGHt3J23q7J-eqNENKRNx2yg"
+
     },
 
     useVue: false,
@@ -22,6 +26,9 @@ const userConfig = {
     useNavigationBar: true, // Use navigation bar for routing
      // Templates to load
     templateContentInsertIndex: 1, // Index to insert additional content views
+    // This should be the root URL of your application.
+    // It's used to correctly build URLs for routing.
+    basePath: "http://localhost/devehoper/",
     // IMPORTANT: Change the basePath to your live domain when deploying to production!
     // Example: "https://www.yourwebsite.com/"
     backendPath: "https://api.devehoper.com/v1/", // Backend path for API calls

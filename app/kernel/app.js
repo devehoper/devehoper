@@ -351,6 +351,31 @@ async loadController(controller, method, args) {
     });
   }
 
+  /**
+   * Dynamically loads the Google reCAPTCHA v3 script using the site key from userConfig.
+   * This prevents "Invalid site key" errors from hardcoded scripts.
+   */
+  loadRecaptchaScript() {
+    return new Promise((resolve) => {
+      const siteKey = userConfig.keys?.recaptchaSiteKey;
+      if (!siteKey) {
+        app.warn('reCAPTCHA site key is not configured in userConfig.js. Skipping load.');
+        return resolve(false);
+      }
+
+      // Check if script is already on the page to avoid duplicates.
+      if (document.querySelector('script[src^="https://www.google.com/recaptcha/api.js"]')) {
+        return resolve(true);
+      }
+
+      const script = document.createElement('script');
+      script.src = `https://www.google.com/recaptcha/api.js?render=${siteKey}`;
+      script.async = true;
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.head.appendChild(script);
+    });
+  }
   // Initialize the application
   async init() {
     $(document).ready(async () => {
@@ -367,6 +392,7 @@ async loadController(controller, method, args) {
       await this.routing();
       await this.setTheme();
       await $(window).trigger("hashchange");
+      await this.loadRecaptchaScript();
       await this.observeDOMChanges();
       if (userConfig.useTranslation ?? config.useTranslation) {
         app.setLanguage();

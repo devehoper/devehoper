@@ -128,3 +128,17 @@ table, thead, tbody, tfoot, tr, td, th {
     opacity: 0.9;
   }
 }
+
+/* ==========================================================================
+   reCAPTCHA Badge Visibility Control
+   ========================================================================== */
+
+/* Hide the reCAPTCHA badge by default */
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
+/* Show the badge only when the modal is open AND the body has the 'recaptcha-active' class */
+body.recaptcha-active #genericModal.show + .grecaptcha-badge {
+  visibility: visible;
+}

@@ -62,25 +62,41 @@ export default class AuthController extends Controller {
         };
 
         const errors = Model.validateData(formData, rules);
-        if (Object.keys(errors).length > 0) {
-            Model.displayValidationErrors(errors, 'invalid-feedback', 'signup-');
-        } else {
-             app.request({
-                url: _this.userModel.api.register,
-                method: "POST",
-                data: JSON.stringify({
-                    username: formData.name,
-                    email: formData.email,
-                    password: formData.password
-                }),
-                success: (response) => {
-                    // Assuming the registration response has the same structure as login
-                    _this.userModel.fromJson(response.data);
-                    Model.setLocalData(_this.userModel.toJson());
-                    window.location.hash = "#UserController?index"; // Redirect to user page
-                },
-           });
+
+        if (typeof grecaptcha === 'undefined') {
+            app.error("reCAPTCHA script not loaded. Cannot proceed with registration.");
+            // Optionally, display a user-friendly error message here.
+            return;
         }
+
+        grecaptcha.ready(function() {
+            grecaptcha.execute(userConfig.keys.recaptchaSiteKey, {action: 'register'}).then(function(token) {
+                if (Object.keys(errors).length > 0) {
+                    Model.displayValidationErrors(errors, 'invalid-feedback', 'signup-');
+                } else {
+                    const requestData = {
+                        username: formData.name,
+                        email: formData.email,
+                        password: formData.password,
+                        token: token
+                    };
+
+                    app.request({
+                        url: _this.userModel.api.register,
+                        method: "POST",
+                        data: JSON.stringify(requestData),
+                        success: (response) => {
+                            // Assuming the registration response has the same structure as login
+                            _this.userModel.fromJson(response.data);
+                            Model.setLocalData(_this.userModel.toJson());
+                            $(document).trigger('login-success'); // Notify UI to update
+                            $('#genericModal').modal('hide'); // Close the modal
+                            window.location.hash = "#StaffController?index"; // Redirect to staff page after registration
+                        },
+                    });
+                }
+            });
+        });
     }
 
 

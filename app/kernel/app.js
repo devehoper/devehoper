@@ -241,8 +241,8 @@ async loadController(controller, method, args) {
   }
 
   // Translate the application based on the given language
-  translate (language) {
-    if( userConfig.useTranslation ?? config.useTranslation) {
+  async translate (language) {
+    if (userConfig.useTranslation ?? config.useTranslation) {
       if(typeof language === "undefined") {
         if(typeof app.data["language"] === "undefined") {
           language = (userConfig.defaultLanguage ?? config.defaultLanguage);
@@ -254,18 +254,14 @@ async loadController(controller, method, args) {
       }
 
       Model.setLocalData({"language": language});
-      $(document).ready(() => {
-        if((userConfig.useTranslation ?? config.useTranslation)) {
-          i18next.changeLanguage(language).then(
-            () => {
-              $('[data-translate]').each(function () {
-                const key = $(this).data('translate');
-                $(this).text(i18next.t(key));
-              });
-            }
-          );
-        }
-      });
+
+      if (i18next.isInitialized && (userConfig.useTranslation ?? config.useTranslation)) {
+        await i18next.changeLanguage(language);
+        $('[data-translate]').each(function () {
+          const key = $(this).data('translate');
+          $(this).text(i18next.t(key));
+        });
+      }
     }
   }
 
@@ -302,27 +298,21 @@ async loadController(controller, method, args) {
 
   // Initialize the translation library
   setLanguage() {
-    if(userConfig.useTranslation ?? config.useTranslation) {
+    if (userConfig.useTranslation ?? config.useTranslation) {
       let language = typeof app.data.language === "undefined" ? (userConfig.defaultLanguage ?? config.defaultLanguage) : app.data.language;
 
-      i18next
+      // Return the promise from i18next.init()
+      return i18next
         .use(i18nextHttpBackend)
-        .init(
-          {
-            fallbackLng: (userConfig.defaultLanguage ?? config.defaultLanguage),
-            lng: language,
-            backend: {
-              loadPath: 'app/locales/{{lng}}.json',
-            },
-          },
-          (err, t) => {
-            if (err) {
-            } else {
-              this.updateTranslations();
-            }
+        .init({
+          fallbackLng: (userConfig.defaultLanguage ?? config.defaultLanguage),
+          lng: language,
+          backend: {
+            loadPath: 'app/locales/{{lng}}.json',
           }
-        );
-      }
+        });
+    }
+    return Promise.resolve(); // Return a resolved promise if translation is disabled
   }
 
   // Update translations for elements with data-translate attributes
@@ -395,8 +385,9 @@ async loadController(controller, method, args) {
       await this.loadRecaptchaScript();
       await this.observeDOMChanges();
       if (userConfig.useTranslation ?? config.useTranslation) {
-        app.setLanguage();
-        
+        await app.setLanguage();
+        // Now that init is complete, update translations
+        this.updateTranslations();
       }
 
       // Add a button to clear cache for debugging

@@ -7,9 +7,6 @@ const userConfig = {
     localStorage: "devehoper", // Local storage key
     appContainerSelector: "#devehoper", // Wrappper that contains all the app content
     keys: {
-        // IMPORTANT: Replace the key below with the reCAPTCHA v3 Site Key from your Google Admin Console.
-        // The old key "AIza..." is invalid. A correct key starts with "6L...".
-        // You must replace this placeholder with your actual key.
         recaptchaSiteKey: "6Leq8fcrAAAAAIwWTGHt3J23q7J-eqNENKRNx2yg"
 
     },

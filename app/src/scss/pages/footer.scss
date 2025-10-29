@@ -1,7 +1,19 @@
-@use "../main.scss" as main;
+/* ==========================
+   FOOTER
+========================== */
+footer.text-muted {
+  background-color: var(--feigniter-background-footer) !important;
+  color: var(--feigniter-text-footer) !important;
+  padding-top: 1rem !important;
 
-footer {
-    // width: 100%;
-    // position: sticky;
-    // bottom: 0;
+  a.text-reset {
+    transition: color 0.2s ease-in-out;
+    &:hover { color: var(--feigniter-primary) !important; }
+  }
+}
+.footer-img {
+  width: 24px;
+  height: 24px;
+  margin-right: 0.5rem;
+  vertical-align: middle;
 }

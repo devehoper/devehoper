@@ -22,8 +22,8 @@ const config = {
         views: ["app/view/header.html", "app/view/footer.html"], // Template views
         jsUrl: ["app/src/js/header.js", "app/src/js/footer.js"], // Template JavaScript files
         cssUrl: [
-            // "app/src/css/pages/header.css",
-            // "app/src/css/pages/footer.css"
+            "app/src/css/pages/header.css",
+            "app/src/css/pages/footer.css"
         ], // Template CSS files
     }, // Templates to load
     templateContentInsertIndex: 1, // Index to insert additional content views

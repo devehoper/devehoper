@@ -90,7 +90,6 @@ export default class AuthController extends Controller {
                             _this.userModel.fromJson(response.data);
                             Model.setLocalData(_this.userModel.toJson());
                             $(document).trigger('login-success'); // Notify UI to update
-                            $('#genericModal').modal('hide'); // Close the modal
                             window.location.hash = "#StaffController?index"; // Redirect to staff page after registration
                         },
                     });
@@ -121,7 +120,7 @@ export default class AuthController extends Controller {
         }
 
         grecaptcha.ready(function() {
-          grecaptcha.execute(userConfig.keys.recaptchaSiteKey, {action: 'submit'}).then(function(token) {
+          grecaptcha.execute(userConfig.keys.recaptchaSiteKey, {action: 'login'}).then(function(token) {
             if (Object.keys(errors).length > 0) {
                 Model.displayValidationErrors(errors, 'invalid-feedback', 'signin-');
             } else {

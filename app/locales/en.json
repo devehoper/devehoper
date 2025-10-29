@@ -20,6 +20,7 @@
     "password": "Password",
     "retypePassword": "Retype Password",
     "signin": "Sign In",
+    "signout": "Sign Out",
     "signup": "Sign Up",
     "docs": {
         "title": "Feigniter Docs!",

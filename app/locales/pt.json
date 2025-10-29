@@ -18,6 +18,7 @@
     "mission description": "Manter a biblioteca simples, limpa e fácil de usar, aumentando a velocidade de desenvolvimento.",
     "whatsapp message": "Envie-me uma mensagem no WhatsApp",
     "signin": "Entrar",
+    "signout": "Sair",
     "signup": "Registar-se",
     "docs": {
         "title": "Documentação Feigniter!",

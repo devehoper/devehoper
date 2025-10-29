@@ -8,7 +8,13 @@ class Header {
 
     //Runs on every page load
     update ()  {
-
+        if(app.models["UserModel"] && app.models["UserModel"].loginToken === null) {
+            $(".signout-link").removeClass("d-none");
+            $(".signin-link").addClass("d-none");
+        } else {
+            $(".signout-link").addClass("d-none");
+            $(".signin-link").removeClass("d-none");
+        }
     }
 
     setEvents() {
@@ -46,7 +52,17 @@ class Header {
             $(document).on('login-success', () => {
                 this.updateAuthUI();
             });
+
+            // Handle sign out
+            $(document).on('click', '.btn-signout', (e) => {
+                e.preventDefault();
+                const Model = app.models["UserModel"];
+                Model.clearLocalData();
+                this.updateAuthUI();
+                window.location.hash = "#HomeController?index"; // Redirect to home page after sign out
+            });
         });
+
     }
 
     updateAuthUI() {

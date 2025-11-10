@@ -1,139 +1,75 @@
 <header class="p-3 " id="header">
-  <div class="container d-none d-md-block">
-    <div class="row d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-      <div class="col-sm-2">
-        <!-- Logo Section -->
-        <a href="#HomeController" class="d-flex align-items-center mb-2 mb-lg-0  text-decoration-none">
-          <img src="app/src/img/logo.webp" alt="Feigniter Logo" width="100" height="100">
-        </a>
-      </div>
-    </div>
-    <div class="row d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"></div>
-      <div class="col-10 col-lg-auto me-lg-auto mb-2">
-      <!-- Navigation Menu -->
-        <ul class="nav  justify-content-center mb-md-0 header-menu">
-          <li class="header-item active" data-index="0">
-            <a href="#HomeController" class="nav-link px-2 text-secondary" data-translate="home">Home</a>
-          </li>
-          
-          <li class="header-item" data-index="1">
-            <a href="#HomeController?about" class="nav-link px-2 " data-translate="about">About</a>
-          </li>
-          
-          <li class="header-item" data-index="2">
-            <a href="#HomeController?services" class="nav-link px-2 " data-translate="services">Services</a>
-          </li>
-          <li class="header-item" data-index="3">
-            <a href="#HomeController?blog" class="nav-link px-2 " >Blog</a>
-          </li>
-          <li class="header-item" data-index="4">
-            <a href="#HomeController?faq" class="nav-link px-2 ">FAQs</a>
-          </li>
-          <!-- <li class="header-item" data-index="5">
-            <a href="#HomeController?documentation" class="nav-link px-2 " data-translate="documentation">Documentation</a>
-          </li> -->
-          <li class="">
-            <!-- Language Selector -->
-            <select id="language-selector-mobile" name="language-selector" class="form-select" title="Select language">
-              <option value="default" selected>Language</option>
-              <option value="en" data-flag="🇺🇸">🇺🇸 English</option>
-              <option value="pt" data-flag="🇵🇹">🇵🇹 Português</option>
-            </select>
-          </li>
-          <li class="">
-            <!-- Theme Selector -->
-            <select id="theme-selector-mobile" name="theme-selector" class="form-select" title="Select theme">
-              <option value="default" selected>Theme</option>
-              <option value="theme-default" >Default</option>
-              <option value="theme-dark" >Dark</option>
-            </select>
-          </li>
-          <li class="nav-item signin-link"><a href="#AuthController?index" class="nav-link px-2 " title="Sign In">
-            <i class="fa-solid fa-right-to-bracket"></i> <span class="d-lg-none ms-2" data-translate="Sign In">Sign In</span>
-          </a></li>
-          <li class="nav-item signout-link d-none">
-            <i class="fa-solid fa-left-to-bracket"></i> <span class="d-lg-none ms-2" data-translate="signout">Sign Out</span>
-          </li>
-        </ul>
-      </div>
+  <!-- Spinner Start -->
+        <!-- <div id="spinner" class="show position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-grow text-primary" role="status"></div>
+        </div> -->
+        <!-- Spinner End -->
 
-      <!-- Search Form -->
-      <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-        <input type="search" id="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
-      </form> -->
-    </div>
-  </div>
+        <!-- Topbar Start -->
+        <div class="container-fluid bg-dark py-2 d-none d-md-flex">
+            <div class="container">
+                <div class="d-flex justify-content-between topbar">
+                    <div class="top-info">
+                        <small class="me-3 text-white-50"><a href="#"><i class="fas fa-map-marker-alt me-2 text-secondary"></i></a>devehoper.com</small>
+                        <small class="me-3 text-white-50"><a href="#"><i class="fas fa-envelope me-2 text-secondary"></i></a>contact@devehoper.com</small>
+                    </div>
+                    <div id="note" class="text-secondary d-none d-xl-flex"><small>Note : We help you to Grow your Business</small></div>
+                    <div class="top-link">
+                        <a href="" class="bg-light nav-fill btn btn-sm-square rounded-circle"><i class="fab fa-facebook-f text-primary"></i></a>
+                        <a href="" class="bg-light nav-fill btn btn-sm-square rounded-circle"><i class="fab fa-twitter text-primary"></i></a>
+                        <a href="" class="bg-light nav-fill btn btn-sm-square rounded-circle"><i class="fab fa-instagram text-primary"></i></a>
+                        <a href="" class="bg-light nav-fill btn btn-sm-square rounded-circle me-0"><i class="fab fa-linkedin-in text-primary"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Topbar End -->
 
-  <div class="container d-md-none">
-    <div class="row">
-      <div class="col-xs-12">
-        <button class="btn btn-outline-light rounded-circle shadow-sm d-md-none header-menu-icon" 
-          type="button" 
-          data-bs-toggle="collapse" 
-          data-bs-target="#collapseExample" 
-          aria-expanded="false" 
-          aria-controls="collapseExample" 
-          title="Toggle navigation menu">
-         <i class="fa-solid fa-bars fa-lg"></i>
-        </button>
-
-      </div>
-
-    </div>
-    <div class="row collapse" id="collapseExample">
-      <div class="col-xs-12">
-              <!-- Navigation Menu -->
-        <ul class="nav justify-content-center mb-md-0 d-block">
-        <li class="header-item active" data-index="0">
-            <a href="#HomeController" class="nav-link px-2 text-secondary" data-translate="home">Home</a>
-          </li>
-          
-          <li class="header-item" data-index="1">
-            <a href="#HomeController?about" class="nav-link px-2 " data-translate="about">About</a>
-          </li>
-          
-          <li class="header-item" data-index="2">
-            <a href="#HomeController?services" class="nav-link px-2 " data-translate="services">Services</a>
-          </li>
-          <li class="header-item" data-index="3">
-            <a href="#HomeController?blog" class="nav-link px-2 " >Blog</a>
-          </li>
-          <li class="header-item" data-index="4">
-            <a href="#HomeController?faq" class="nav-link px-2 ">FAQs</a>
-          </li>
-          <li class="header-item">
-            <!-- Language Selector -->
-            <select id="language-selector" name="language-selector" class="form-select" title="Select language">
-              <option value="default" selected>Language</option>
-              <option value="en" data-flag="🇺🇸">🇺🇸 English</option>
-              <option value="pt" data-flag="🇵🇹">🇵🇹 Português</option>
-            </select>
-          </li>
-          <li class="header-item">
-            <!-- Theme Selector -->
-            <select id="theme-selector" name="theme-selector" class="form-select" title="Select theme">
-              <option value="default" selected>Theme</option>
-              <option value="theme-default" >Default</option>
-              <option value="theme-dark" >Dark</option>
-            </select>
-          </li>
-          <li class="nav-item signin-link">
-            <a href="#AuthController?index" class="nav-link px-2 " title="Sign In">
-              <i class="fa-solid fa-right-to-bracket"></i> <span data-translate="Sign In">Sign In</span>
-            </a>
-          </li>
-          <li class="nav-item signout-link d-none">
-            <i class="fa-solid fa-left-to-bracket"></i> <span class="d-lg-none ms-2" data-translate="signout">Sign Out</span>
-          </li>
-           <!-- Search Form -->
-          <!-- <li class="class-item">
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-              <input type="search" id="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
-            </form>
-          </li> -->
-        </ul>
-      </div>
-    </div>
-
-  </div>
+                <!-- Navbar Start -->
+        <div class="container-fluid bg-primary">
+            <div class="container">
+                <nav class="navbar navbar-dark navbar-expand-lg py-0">
+                    <a href="index.html" class="navbar-brand">
+                        <h1 class="text-white fw-bold d-block">High<span class="text-secondary">Tech</span> </h1>
+                    </a>
+                    <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse bg-transparent" id="navbarCollapse">
+                        <div class="navbar-nav ms-auto mx-xl-auto p-0 header-item">
+                            <a href="#HomeController" class="nav-item nav-link" data-translate="home">Home</a>
+                            <a href="#HomeController?about" class="nav-item nav-link" data-translate="about">About</a>
+                            <a href="#HomeController?services" class="nav-item nav-link" data-translate="services">Services</a>
+                            <!-- <a href="project.html" class="nav-item nav-link">Projects</a> -->
+                            <a href="#HomeController?contact" class="nav-item nav-link" data-translate="contact">Contact</a>
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-translate="language">Language</a>
+                                <div class="dropdown-menu rounded">
+                                    <a  class="dropdown-item language" data-ln="pt">PT</a>
+                                    <a  class="dropdown-item language" data-ln="en">EN</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-none d-xl-flex flex-shirink-0">
+                        <div id="phone-tada" class="d-flex align-items-center justify-content-center me-4">
+                            <a href="" class="position-relative animated tada infinite">
+                                <i class="fa fa-phone-alt text-white fa-2x"></i>
+                                <div class="position-absolute" style="top: -7px; left: 20px;">
+                                    <span><i class="fa fa-comment-dots text-secondary"></i></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="d-flex flex-column pe-4 border-end">
+                            <span class="text-white-50">Have any questions?</span>
+                            <span class="text-secondary">Call: + 0123 456 7890</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center ms-4 ">
+                            <a href="#"><i class="bi bi-search text-white fa-2x"></i> </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- Navbar End -->
 </header>

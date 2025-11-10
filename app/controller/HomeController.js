@@ -15,6 +15,12 @@ export default class HomeController extends Controller {
         });
     }
 
+    contact() {
+        super.loadView("app/view/home/contact").then( () => {
+            typeof app.singletons["header"] !== "undefined" ? app.singletons["header"].setActiveMenuItem(3): null;
+        });
+    }
+
     services() {
         super.loadView("app/view/home/services", "app/src/css/pages/services.css", "app/src/js/home/services.js").then( () => {
             typeof app.singletons["header"] !== "undefined" ? app.singletons["header"].setActiveMenuItem(2): null;
@@ -25,13 +31,13 @@ export default class HomeController extends Controller {
 
     blog() {
         super.loadView("app/view/home/blog").then( () => {
-            typeof app.singletons["header"] !== "undefined" ? app.singletons["header"].setActiveMenuItem(3): null;
+            typeof app.singletons["header"] !== "undefined" ? app.singletons["header"].setActiveMenuItem(4): null;
         });
     }
 
     faq() {
         super.loadView("app/view/home/faq").then( () => {
-            typeof app.singletons["header"] !== "undefined" ? app.singletons["header"].setActiveMenuItem(4): null;
+            typeof app.singletons["header"] !== "undefined" ? app.singletons["header"].setActiveMenuItem(5): null;
         });
     }
 }

@@ -61,6 +61,12 @@ class Header {
                 this.updateAuthUI();
                 window.location.hash = "#HomeController?index"; // Redirect to home page after sign out
             });
+
+            $(document).on('click', '.language', (e) => {
+                e.preventDefault();
+                const selectedLang = $(e.currentTarget).data('ln');
+                app.translate(selectedLang);
+            });
         });
 
     }
@@ -92,11 +98,11 @@ class Header {
 
     setActiveMenuItem(index) {
         $(document).ready(() => {
-            let menuIndex = typeof index === 'number' ? index : $(".header-item").data('index');
-            $('.text-secondary').removeClass('text-secondary');
+            let menuIndex = typeof index === 'number' ? index : 0;
+            $('.active .text-secondary').removeClass('active text-secondary');
             $(".header-item a")
             .eq(menuIndex)
-            .addClass("text-secondary");
+            .addClass("active text-secondary");
         } );
     }
 }

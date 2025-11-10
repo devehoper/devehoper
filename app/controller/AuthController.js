@@ -15,7 +15,10 @@ export default class AuthController extends Controller {
     index() {
         // You could have this load a dedicated /#signin page if you wanted.
         // For now, we'll use it to open the modal.
-        super.loadView("app/view/home/signin");
+        super.loadView("app/view/home/signin").then(() => {
+            typeof app.singletons["header"] !== "undefined" ? app.singletons["header"].setActiveMenuItem(4): null;
+        });
+
         this.attachEventListeners();
     }
 
@@ -97,6 +100,8 @@ export default class AuthController extends Controller {
             });
         });
     }
+
+    
 
 
     handleLogin() {

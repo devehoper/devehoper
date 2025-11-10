@@ -29,8 +29,9 @@
         <div class="container-fluid bg-primary">
             <div class="container">
                 <nav class="navbar navbar-dark navbar-expand-lg py-0">
-                    <a href="index.html" class="navbar-brand">
-                        <h1 class="text-white fw-bold d-block">High<span class="text-secondary">Tech</span> </h1>
+                    <a href="#HomeController" class="navbar-brand">
+                        <!-- <h1 class="text-white fw-bold d-block">High<span class="text-secondary">Tech</span> </h1> -->
+                         <img src="app/src/img/logo.webp" class="img-fluid" alt="Logo">
                     </a>
                     <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
@@ -42,6 +43,15 @@
                             <a href="#HomeController?services" class="nav-item nav-link" data-translate="services">Services</a>
                             <!-- <a href="project.html" class="nav-item nav-link">Projects</a> -->
                             <a href="#HomeController?contact" class="nav-item nav-link" data-translate="contact">Contact</a>
+                            <a href="#AuthController" class="nav-item nav-link signin" data-translate="signup">
+                                <i class="bi bi-signin text-white"></i> <span data-translate="signin">Sign In</span>
+                            </a>
+                            <a href="#StaffController" class="nav-item nav-link user-area d-none" >
+                                <i class="bi bi-signin text-white"></i> <span data-translate="user area">User Area</span>
+                            </a>
+                            <div id="logout-btn" class="nav-item nav-link user-area d-none" style="cursor: pointer;">
+                                <i class="bi bi-signin text-white"></i> <span data-translate="logout">Logout</span>
+                            </div>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-translate="language">Language</a>
                                 <div class="dropdown-menu rounded">

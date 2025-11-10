@@ -3,19 +3,28 @@ class Header {
     constructor() {
         
         this.setEvents();
-        this.updateAuthUI();
+        //this.updateAuthUI();
     }
 
     //Runs on every page load
     update ()  {
-        if(app.models["UserModel"] && app.models["UserModel"].loginToken === null) {
-            $(".signout-link").removeClass("d-none");
-            $(".signin-link").addClass("d-none");
-        } else {
-            $(".signout-link").addClass("d-none");
-            $(".signin-link").removeClass("d-none");
-        }
+        // if(app.models["UserModel"] && app.models["UserModel"].loginToken === null) {
+        //     $(".signout-link").removeClass("d-none");
+        //     $(".signin-link").addClass("d-none");
+        // } else {
+        //     $(".signout-link").addClass("d-none");
+        //     $(".signin-link").removeClass("d-none");
+        // }
     }
+    showUserAreaVisibility() {
+        if(app.models.UserModel && app.models.UserModel.loginToken !== null) {
+            $('.user-area').removeClass('d-none');
+            $('.signin').addClass('d-none');
+        } else {
+            $('.user-area').addClass('d-none');
+            $('.signin').removeClass('d-none');
+        }
+     }
 
     setEvents() {
         $(document).ready(() => {
@@ -49,18 +58,26 @@ class Header {
             });
 
             // When a login is successful, AuthController will trigger this custom event
-            $(document).on('login-success', () => {
-                this.updateAuthUI();
-            });
+            // $(document).on('login-success', () => {
+            //     this.updateAuthUI();
+            // });
 
             // Handle sign out
-            $(document).on('click', '.btn-signout', (e) => {
+            // $(document).on('click', '.btn-signout', (e) => {
+            //     e.preventDefault();
+            //     const Model = app.models["UserModel"];
+            //     Model.clearLocalData();
+            //     this.updateAuthUI();
+            //     window.location.hash = "#HomeController?index"; // Redirect to home page after sign out
+            // });
+            $(document).on('click', '#logout-btn', (e) => {
                 e.preventDefault();
                 const Model = app.models["UserModel"];
                 Model.clearLocalData();
-                this.updateAuthUI();
                 window.location.hash = "#HomeController?index"; // Redirect to home page after sign out
             });
+
+            
 
             $(document).on('click', '.language', (e) => {
                 e.preventDefault();
@@ -71,30 +88,30 @@ class Header {
 
     }
 
-    updateAuthUI() {
-        const userData = Model.getLocalData();
-        const isSignedIn = userData && userData.userToken;
+    // updateAuthUI() {
+    //     const userData = Model.getLocalData();
+    //     const isSignedIn = userData && userData.userToken;
 
-        if (isSignedIn) {
-            // User is signed in: Show user name and sign out button
-            $('.btn-signin').hide();
-            $('.nav-item-user').remove(); // Clear previous user info to prevent duplicates
-            $('#main-nav .navbar-nav, #mobile-nav .navbar-nav').append(`
-                <li class="nav-item nav-item-user dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarUserDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        ${userData.userName || 'Account'}
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarUserDropdown">
-                        <li><a class="dropdown-item btn-signout" href="#">Sign Out</a></li>
-                    </ul>
-                </li>
-            `);
-        } else {
-            // User is not signed in: Show sign in button
-            $('.btn-signin').show();
-            $('.nav-item-user').remove();
-        }
-    }
+    //     if (isSignedIn) {
+    //         // User is signed in: Show user name and sign out button
+    //         $('.btn-signin').hide();
+    //         $('.nav-item-user').remove(); // Clear previous user info to prevent duplicates
+    //         $('#main-nav .navbar-nav, #mobile-nav .navbar-nav').append(`
+    //             <li class="nav-item nav-item-user dropdown">
+    //                 <a class="nav-link dropdown-toggle" href="#" id="navbarUserDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    //                     ${userData.userName || 'Account'}
+    //                 </a>
+    //                 <ul class="dropdown-menu" aria-labelledby="navbarUserDropdown">
+    //                     <li><a class="dropdown-item btn-signout" href="#">Sign Out</a></li>
+    //                 </ul>
+    //             </li>
+    //         `);
+    //     } else {
+    //         // User is not signed in: Show sign in button
+    //         $('.btn-signin').show();
+    //         $('.nav-item-user').remove();
+    //     }
+    // }
 
     setActiveMenuItem(index) {
         $(document).ready(() => {

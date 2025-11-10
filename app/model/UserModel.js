@@ -16,6 +16,12 @@ class UserModel extends Model {
     this.email = email || "";
   }
 
+  clearLocalData() {
+    this.name = null;
+    this.email = null;
+    this.loginToken = null;
+  }
+
   // validateResponse(actual, expected) {
   //   function deepCompare(obj, template) {
   //     if (typeof template === "string") {

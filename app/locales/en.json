@@ -25,6 +25,8 @@
     "signin": "Sign In",
     "signout": "Sign Out",
     "signup": "Sign Up",
+    "user area": "User Area",
+    "logout": "Logout",
     "docs": {
         "title": "Feigniter Docs!",
         "subtitle": "Your guide to building awesome websites, made super simple!",

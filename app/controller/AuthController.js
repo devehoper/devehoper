@@ -134,6 +134,23 @@ export default class AuthController extends Controller {
                     url: _this.userModel.api.login,
                     method: "POST",
                     data: JSON.stringify(requestData),
+                    error: async (response) => { // Make the callback async
+                        if(response.status === 401) {
+                            Model.displayValidationErrors({
+                                email: i18next.t('form.error.invalidCredentials'),
+                                password: i18next.t('form.error.invalidCredentials'),
+                            }, 'invalid-feedback', 'signin-');
+                        } else if(response.status === 429) {
+                           // Await the translations before calling the modal function
+                            const titleText = await app.translate('too many attempts');
+                            const bodyText = await app.translate('Please wait before trying again or reset your password');
+                            openGenericModal({
+                                title: titleText,
+                                html: `<div class='alert alert-danger'>${bodyText}</div>`,
+                                size: 'md'
+                            });
+                        }
+                    },
                     success: (response) => {
                         _this.userModel.fromJson(response.data);
                         Model.setLocalData(_this.userModel.toJson());

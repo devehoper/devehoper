@@ -77,8 +77,6 @@ class Header {
                 window.location.hash = "#HomeController?index"; // Redirect to home page after sign out
             });
 
-            
-
             $(document).on('click', '.language', (e) => {
                 e.preventDefault();
                 const selectedLang = $(e.currentTarget).data('ln');

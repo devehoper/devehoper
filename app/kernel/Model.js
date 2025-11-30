@@ -50,16 +50,23 @@ class Model {
     static displayValidationErrors(errors, errorClass = 'invalid-feedback', idPrefix = '') {
         // First, clear all previous validation messages
         $(`.${errorClass}`).html('').hide();
-
+ 
+        // If errors is not a non-null object, or if it's an empty object,
+        // there's nothing to display, so we can exit early.
+        if (typeof errors !== 'object' || errors === null || Object.keys(errors).length === 0) {
+            return;
+        }
+ 
+        // If we reach here, 'errors' is an object with at least one property.
         for (const field in errors) {
-            const errorElement = $(`#${idPrefix}${field}-error`);
-            if (errorElement.length) {
-                errorElement.html(errors[field]).show();
-            }
-            else {
-                // As a fallback, log an error if the corresponding error element isn't found
-                if (typeof app !== 'undefined' && app.warn) {
-                    app.warn(`Validation error element not found for field: #${field}-error`);
+            // Use .hasOwnProperty to ensure we are not iterating over prototype properties
+            if (Object.prototype.hasOwnProperty.call(errors, field)) {
+                const errorElement = $(`#${idPrefix}${field}-error`);
+                if (errorElement.length) {
+                    errorElement.html(errors[field]).show();
+                } else {
+                    // Fallback for when the error element isn't found
+                    app.warn?.(`Validation error element not found for field: #${idPrefix}${field}-error`);
                 }
             }
         }

@@ -98,6 +98,7 @@
                 easing: 'easeInQuad',
                 step: function (now){
                     $(this).text(Math.ceil(now));
+                    alert("teste");
                 }
             });
         });

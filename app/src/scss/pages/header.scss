@@ -8,6 +8,9 @@
   padding: 0.5rem 0 !important;
 
   .header-menu {
+    .language:hover {
+      cursor: pointer;
+    }
     .nav-link {
       color: var(--feigniter-text-muted);
       font-weight: 500;

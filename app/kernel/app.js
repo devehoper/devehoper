@@ -369,7 +369,7 @@ async loadController(controller, method, args) {
   // Initialize the application
   async init() {
     $(document).ready(async () => {
-      if(userConfig.useCache ?? config.useCache) {
+      if((userConfig.useCache ?? config.useCache) && window.location.protocol === 'https:') {
         await app.startServiceWorker();
       }
       app.data = Model.getLocalData();

@@ -28,7 +28,7 @@ const userConfig = {
     basePath: "http://localhost/devehoper/",
     // IMPORTANT: Change the basePath to your live domain when deploying to production!
     // Example: "https://www.yourwebsite.com/"
-    backendPath: "https://api.devehoper.com/v1/", // Backend path for API calls
+    backendPath: "http://localhost/devehoperapi/public/v1/", // Backend path for API calls
     //Begin Of Styling configs
     defaultTheme: "theme-dark", // Default theme
     themes: ["theme-default", "theme-dark"], // Available themes

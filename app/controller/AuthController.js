@@ -81,7 +81,8 @@ export default class AuthController extends Controller {
                         username: formData.name,
                         email: formData.email,
                         password: formData.password,
-                        token: token
+                        token: token,
+                        ln: i18next.language
                     };
 
                     app.request({

@@ -12,6 +12,7 @@ class App {
     this.jsCache = {}; // Cache for loaded JavaScript files
     this.cssCache = {}; // Cache for loaded CSS files
     this.models = {}; // Models used in the application
+    this.widgets = {}; // Widgets used in the application
     this.actionRegistry = new ActionRegistry(); // Initialize the ActionRegistry
     this.data = Model.getLocalData(); // Loads data from localstorage
     this.jsToLoad = []; // Object to hold JavaScript files to load
@@ -455,11 +456,24 @@ async loadController(controller, method, args) {
     });
   }
 
+  loadWidget(widgetName, config = {}) {
+    // Create a modal widget
+    WidgetFactory.create(widgetName, config);
+    // await modal.open({ title: 'My Modal', html: '<p>Hello World!</p>' });
+
+    // // Create a spinner widget
+    //const spinner = WidgetFactory.create('spinner');
+    // spinner.show(); // Show loading spinner
+    // // ... do something async ...
+    // spinner.hide(); // Hide spinner
+  }
+
 
 }
 
 // Example of registering actions
 let app = new App();
+window.app = app;
 // app.actionRegistry.registerAction('test');
 app.actionRegistry.registerAction('table');
 

@@ -6,7 +6,7 @@ const config = {
     defaultLanguage: "pt", // Default language
     localStorage: "feigniter", // Local storage key
     appContainerSelector: "#feigniter", // Wrappper that contains all the app content
-
+    widgets: {"modal": {name: "modal"}, "spinner": {name: "spinner"}, "timer": {name: "timer"}}, // Object to reference availablewidgets
     useVue: false,
 
     debugMode: true, // Enable or disable debug mode
@@ -41,3 +41,5 @@ const config = {
     //callbacks to call on each loadController(...).then(postHooks)
     postHooks: []
 };
+
+window.config = config;

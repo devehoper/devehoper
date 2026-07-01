@@ -241,8 +241,8 @@ async loadController(controller, method, args) {
   }
 
   // Translate the application based on the given language
-  async translate (language) {
-    if (userConfig.useTranslation ?? config.useTranslation) {
+  translate (language) {
+    if( userConfig.useTranslation ?? config.useTranslation) {
       if(typeof language === "undefined") {
         if(typeof app.data["language"] === "undefined") {
           language = (userConfig.defaultLanguage ?? config.defaultLanguage);
@@ -254,14 +254,18 @@ async loadController(controller, method, args) {
       }
 
       Model.setLocalData({"language": language});
-
-      if (i18next.isInitialized && (userConfig.useTranslation ?? config.useTranslation)) {
-        await i18next.changeLanguage(language);
-        $('[data-translate]').each(function () {
-          const key = $(this).data('translate');
-          $(this).text(i18next.t(key));
-        });
-      }
+      $(document).ready(() => {
+        if((userConfig.useTranslation ?? config.useTranslation)) {
+          i18next.changeLanguage(language).then(
+            () => {
+              $('[data-translate]').each(function () {
+                const key = $(this).data('translate');
+                $(this).text(i18next.t(key));
+              });
+            }
+          );
+        }
+      });
     }
   }
 
@@ -298,21 +302,27 @@ async loadController(controller, method, args) {
 
   // Initialize the translation library
   setLanguage() {
-    if (userConfig.useTranslation ?? config.useTranslation) {
+    if(userConfig.useTranslation ?? config.useTranslation) {
       let language = typeof app.data.language === "undefined" ? (userConfig.defaultLanguage ?? config.defaultLanguage) : app.data.language;
 
-      // Return the promise from i18next.init()
-      return i18next
+      i18next
         .use(i18nextHttpBackend)
-        .init({
-          fallbackLng: (userConfig.defaultLanguage ?? config.defaultLanguage),
-          lng: language,
-          backend: {
-            loadPath: 'app/locales/{{lng}}.json',
+        .init(
+          {
+            fallbackLng: (userConfig.defaultLanguage ?? config.defaultLanguage),
+            lng: language,
+            backend: {
+              loadPath: 'app/locales/{{lng}}.json',
+            },
+          },
+          (err, t) => {
+            if (err) {
+            } else {
+              this.updateTranslations();
+            }
           }
-        });
-    }
-    return Promise.resolve(); // Return a resolved promise if translation is disabled
+        );
+      }
   }
 
   // Update translations for elements with data-translate attributes
@@ -323,55 +333,26 @@ async loadController(controller, method, args) {
     });
   }
 
-  /**
-   * Sets the application theme by changing the class on the body element.
-   * This function relies on a single, pre-compiled CSS file that contains all theme definitions.
-   * @param {string} [theme] - The name of the theme to apply (e.g., 'theme-dark'). If not provided, it falls back to localStorage or the default theme.
-   */
   setTheme(theme) {
     $(document).ready(() => {
-      const themes = userConfig.themes ?? config.themes;
-      const newTheme = theme || this.data?.theme || (userConfig.defaultTheme ?? config.defaultTheme);
-
-      // Persist the chosen theme to local storage for future visits.
-      Model.setLocalData({ theme: newTheme });
-
-      // Efficiently remove any existing theme classes and add the new one.
-      $("body").removeClass(themes.join(" ")).addClass(newTheme);
+      let themes = userConfig.themes ?? config.themes;
+      theme = theme || this.data?.theme || (userConfig.defaultTheme ?? config.defaultTheme);
+      if(themes.indexOf(theme) === 1) {
+        Controller.unloadCSS();
+        Controller.loadCss(`app/src/css/themes/${theme}/${theme}.css`);
+        Model.setLocalData({ theme });
+        $("body").removeClass(themes.join(" ")).addClass(theme);
+      }
     });
   }
 
-  /**
-   * Dynamically loads the Google reCAPTCHA v3 script using the site key from userConfig.
-   * This prevents "Invalid site key" errors from hardcoded scripts.
-   */
-  loadRecaptchaScript() {
-    return new Promise((resolve) => {
-      const siteKey = userConfig.keys?.recaptchaSiteKey;
-      if (!siteKey) {
-        app.warn('reCAPTCHA site key is not configured in userConfig.js. Skipping load.');
-        return resolve(false);
-      }
-
-      // Check if script is already on the page to avoid duplicates.
-      if (document.querySelector('script[src^="https://www.google.com/recaptcha/api.js"]')) {
-        return resolve(true);
-      }
-
-      const script = document.createElement('script');
-      script.src = `https://www.google.com/recaptcha/api.js?render=${siteKey}`;
-      script.async = true;
-      script.onload = () => resolve(true);
-      script.onerror = () => resolve(false);
-      document.head.appendChild(script);
-    });
-  }
   // Initialize the application
   async init() {
     $(document).ready(async () => {
       if((userConfig.useCache ?? config.useCache) && window.location.protocol === 'https:') {
         await app.startServiceWorker();
       }
+      
       app.data = Model.getLocalData();
       let appContainerSelector = userConfig.appContainerSelector ?? config.appContainerSelector;
       let bp = userConfig.basePath ?? config.basePath;
@@ -382,12 +363,10 @@ async loadController(controller, method, args) {
       await this.routing();
       await this.setTheme();
       await $(window).trigger("hashchange");
-      await this.loadRecaptchaScript();
       await this.observeDOMChanges();
       if (userConfig.useTranslation ?? config.useTranslation) {
-        await app.setLanguage();
-        // Now that init is complete, update translations
-        this.updateTranslations();
+        app.setLanguage();
+        
       }
 
       // Add a button to clear cache for debugging

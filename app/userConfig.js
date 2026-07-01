@@ -30,7 +30,7 @@ const userConfig = {
     // Example: "https://www.yourwebsite.com/"
     backendPath: "http://localhost/devehoperapi/public/v1/", // Backend path for API calls
     //Begin Of Styling configs
-    defaultTheme: "theme-dark", // Default theme
+    defaultTheme: "none", // Default theme
     themes: ["theme-default", "theme-dark"], // Available themes
     themePath: "app/view/themes/", //  Path to theme files
     //End Of Styling Configs

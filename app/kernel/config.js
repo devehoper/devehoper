@@ -31,7 +31,7 @@ const config = {
     backendPath: "", // Backend path for API calls
 
     //Begin Of Styling configs
-    defaultTheme: "theme-dark", // Default theme
+    defaultTheme: "theme-default", // Default theme
     themes: ["theme-default", "theme-dark"], // Available themes
     themePath: "app/view/themes/", // Path to theme files
     //End Of Styling Configs

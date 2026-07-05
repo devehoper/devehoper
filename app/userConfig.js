@@ -24,10 +24,13 @@ const userConfig = {
     templateContentInsertIndex: 1, // Index to insert additional content views
     // This should be the root URL of your application.
     // It's used to correctly build URLs for routing.
-    basePath: "https://devehoper.com/", // Base path for the application, used for routing and API calls
+    //basePath: "http://localhost/devehoper/",
+    basePath: "https://devehoper.com/", // PROD Base path for the application, used for routing and API calls"
+    //Production backend path for API calls
+    backendPath: "https://api.devehoper.com/v1/",
     // IMPORTANT: Change the basePath to your live domain when deploying to production!
     // Example: "https://www.yourwebsite.com/"
-    backendPath: "https://api.devehoper.com/v1/", // Backend path for API calls
+    //backendPath: "http://localhost/devehoperapi/public/v1/", // Backend path for API calls
     //Begin Of Styling configs
     defaultTheme: "", // Default theme
     themes: ["theme-default", "theme-dark"], // Available themes

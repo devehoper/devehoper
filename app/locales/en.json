@@ -48,6 +48,8 @@
     "help link": "Help Link",
     "Please wait before trying again or reset your password" : "Please wait before trying again or reset your password",
     "too many attempts" : "Too Many Attempts",
+    "Full Name": "Full Name",
+    "Phone number": "Phone Number",
 
     "form": {
         "error": {
@@ -70,8 +72,7 @@
         "custom": "{{field}} is invalid.",
         "invalidDate": "{{field}} must be a valid date.",
         "invalidURL": "{{field}} must be a valid URL.",
-        "notFound": "{{field}} not found.",
-        "invalidCredentials": "Invalid credentials."
+        "notFound": "{{field}} not found."
         }
     }
 }

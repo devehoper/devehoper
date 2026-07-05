@@ -65,15 +65,15 @@ export default class AuthController extends Controller {
         };
 
         const errors = Model.validateData(formData, rules);
+        const siteKey = (typeof userConfig !== 'undefined' && userConfig.keys && userConfig.keys.recaptchaSiteKey) || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
 
-        if (typeof grecaptcha === 'undefined') {
-            app.error("reCAPTCHA script not loaded. Cannot proceed with registration.");
-            // Optionally, display a user-friendly error message here.
+        if (typeof grecaptcha === 'undefined' || !siteKey) {
+            app.error("reCAPTCHA is not configured correctly. Cannot proceed with registration.");
             return;
         }
 
         grecaptcha.ready(function() {
-            grecaptcha.execute(userConfig.keys.recaptchaSiteKey, {action: 'register'}).then(function(token) {
+            grecaptcha.execute(siteKey, {action: 'register'}).then(function(token) {
                 if (Object.keys(errors).length > 0) {
                     Model.displayValidationErrors(errors, 'invalid-feedback', 'signup-');
                 } else {
@@ -90,13 +90,12 @@ export default class AuthController extends Controller {
                         method: "POST",
                         data: JSON.stringify(requestData),
                         success: (response) => {
-                            // Assuming the registration response has the same structure as login
                             _this.userModel.fromJson(response.data);
                             Model.setLocalData(_this.userModel.toJson());
-                            $(document).trigger('login-success'); // Notify UI to update
-                            window.location.hash = "#StaffController?index"; // Redirect to staff page after registration
+                            $(document).trigger('login-success');
+                            window.location.hash = "#StaffController?index";
                         },
-                    });
+                    }, true);
                 }
             });
         });
@@ -118,15 +117,15 @@ export default class AuthController extends Controller {
         };
 
         const errors = Model.validateData(formData, rules);
+        const siteKey = (typeof userConfig !== 'undefined' && userConfig.keys && userConfig.keys.recaptchaSiteKey) || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
 
-        if (typeof grecaptcha === 'undefined') {
-            app.error("reCAPTCHA script not loaded. Cannot proceed with login.");
-            // Optionally, display a user-friendly error message here.
+        if (typeof grecaptcha === 'undefined' || !siteKey) {
+            app.error("reCAPTCHA is not configured correctly. Cannot proceed with login.");
             return;
         }
 
         grecaptcha.ready(function() {
-          grecaptcha.execute(userConfig.keys.recaptchaSiteKey, {action: 'login'}).then(function(token) {
+          grecaptcha.execute(siteKey, {action: 'login'}).then(function(token) {
             if (Object.keys(errors).length > 0) {
                 Model.displayValidationErrors(errors, 'invalid-feedback', 'signin-');
             } else {
@@ -159,7 +158,7 @@ export default class AuthController extends Controller {
                         $('#genericModal').modal('hide'); // Close the modal
                         window.location.hash = "#StaffController?index"; // Redirect to user page
                     },
-                });
+                }, true);
             }
           });
         });

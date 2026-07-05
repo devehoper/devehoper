@@ -5,7 +5,6 @@
   background-color: var(--feigniter-background);
   border-bottom: 1px solid var(--feigniter-border);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  padding: 0.5rem 0 !important;
 }
 #header .header-menu .language:hover {
   cursor: pointer;

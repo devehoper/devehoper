@@ -64,12 +64,21 @@
         <!-- Template Stylesheet -->
         <link href="app/src/css/style.css" rel="stylesheet">
     
-    <!-- <link href="app/src/css/main.css?v=1.0" rel="stylesheet"> -->
+    <link href="app/src/css/main.css?v=1.0" rel="stylesheet">
     
     <!-- Title -->
     <title>Devehoper</title>
 
-    
+<script>
+  window.recaptchaSiteKey = window.recaptchaSiteKey || (window.userConfig && window.userConfig.keys && window.userConfig.keys.recaptchaSiteKey) || '';
+  if (window.recaptchaSiteKey) {
+    var recaptchaScript = document.createElement('script');
+    recaptchaScript.src = 'https://www.google.com/recaptcha/api.js?render=' + encodeURIComponent(window.recaptchaSiteKey);
+    recaptchaScript.async = true;
+    recaptchaScript.defer = true;
+    document.head.appendChild(recaptchaScript);
+  }
+</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6CQF3R0XGG"></script>
 <script>
@@ -97,6 +106,10 @@
     </div>
     </div>
 
+    <div id="loader">
+        <i class="fas fa-spinner fa-spin fa-3x"></i>
+    </div>
+
     <!-- JavaScript -->
     <!-- Importing JavaScript libraries and application scripts -->
     <script src="app/src/js/lib/dataTables/datatables.min.js?v=1.0" defer></script>
@@ -117,7 +130,17 @@
     <script src="app/src/js/img.js?v=1.0" defer></script>
     <script src="app/kernel/error_handler.js?v=1.0" defer></script>
     <script src="app/kernel/config.js?v=1.0" defer></script>
-    <script src="app/userConfig.js?v=1.0" defer></script>
+    <script src="app/userConfig.js?v=1.0"></script>
+    <script>
+        window.recaptchaSiteKey = window.recaptchaSiteKey || (window.userConfig && window.userConfig.keys && window.userConfig.keys.recaptchaSiteKey) || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
+        if (!window.grecaptcha && window.recaptchaSiteKey) {
+            var recaptchaScript = document.createElement('script');
+            recaptchaScript.src = 'https://www.google.com/recaptcha/api.js?render=' + encodeURIComponent(window.recaptchaSiteKey);
+            recaptchaScript.async = true;
+            recaptchaScript.defer = true;
+            document.head.appendChild(recaptchaScript);
+        }
+    </script>
     <script src="app/kernel/Model.js?v=1.0" defer></script>
     <script src="app/kernel/Controller.js?v=1.0" defer></script>
     <script src="app/widgets/widget.js?v=1.0" type="module" defer></script>

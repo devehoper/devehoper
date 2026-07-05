@@ -7,8 +7,7 @@ const userConfig = {
     localStorage: "devehoper", // Local storage key
     appContainerSelector: "#devehoper", // Wrappper that contains all the app content
     keys: {
-        recaptchaSiteKey: "6Leq8fcrAAAAAIwWTGHt3J23q7J-eqNENKRNx2yg"
-
+        recaptchaSiteKey: "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" // Local development test key; replace with your real site key in production
     },
 
     useVue: false,
@@ -30,7 +29,7 @@ const userConfig = {
     // Example: "https://www.yourwebsite.com/"
     backendPath: "http://localhost/devehoperapi/public/v1/", // Backend path for API calls
     //Begin Of Styling configs
-    defaultTheme: "none", // Default theme
+    defaultTheme: "", // Default theme
     themes: ["theme-default", "theme-dark"], // Available themes
     themePath: "app/view/themes/", //  Path to theme files
     //End Of Styling Configs

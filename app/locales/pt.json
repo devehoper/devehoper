@@ -47,6 +47,9 @@
     "help link": "Link de Ajuda",
     "Please wait before trying again or reset your password" : "Por favor, aguarde antes de tentar novamente ou redefinir sua senha",
     "too many attempts" : "Muitas Tentativas",
+    "Full Name": "Nome Completo",
+    "Phone number": "Número de Telefone",
+
     "form": {
         "error": {
             "required": "{{field}} é obrigatório.",
@@ -68,8 +71,7 @@
             "custom": "{{field}} é inválido.",
             "invalidDate": "{{field}} deve ser uma data válida.",
             "invalidURL": "{{field}} deve ser um URL válido.",
-            "notFound": "{{field}} não foi encontrado.",
-            "invalidCredentials": "Credenciais inválidas."
+            "notFound": "{{field}} não foi encontrado."
         }
     }
 }

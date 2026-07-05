@@ -381,10 +381,12 @@ async loadController(controller, method, args) {
       }
 
       if (userConfig.useVue ?? config.useVue) {
-        Controller.loadJs(bp + "app/src/js/lib/vue.js", "module").then(() => {
-          import(bp + "app/services/vueHost.js").then(({ default: VueHost }) => {
-            app.singletons["vue"] = new VueHost();
-          });
+        //Controller.loadJs(bp + "app/src/js/lib/vue.js", "module").then(() => {
+          Controller.loadJs("https://unpkg.com/vue@3/dist/vue.global.js").then(() => {
+          
+          // import(bp + "app/services/vueHost.js").then(({ default: VueHost }) => {
+          //   app.singletons["vue"] = new VueHost();
+          // });
         });
       }
 

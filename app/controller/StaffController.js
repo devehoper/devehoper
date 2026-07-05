@@ -20,7 +20,7 @@ export default class AuthController extends Controller {
         }
 
         // If authenticated, proceed with loading the staff view and updating the header
-        super.loadView("app/view/staff/index.html", "app/src/css/pages/staff/index.css").then(() => {
+        super.loadView("app/view/staff/index.html", "app/src/css/pages/staff/index.css", "app/src/js/staff/index.js").then(() => {
             app.singletons["header"].setActiveMenuItem(4);
             app.singletons["header"].showUserAreaVisibility();
         });

@@ -10,7 +10,7 @@ const userConfig = {
         recaptchaSiteKey: "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" // Local development test key; replace with your real site key in production
     },
 
-    useVue: false,
+    useVue: true,
 
     debugMode: false, // Enable or disable debug mode
     useCache: true, // Enable or disable caching, dont change it, not full implemented for false case (V=0.1)
@@ -24,10 +24,10 @@ const userConfig = {
     templateContentInsertIndex: 1, // Index to insert additional content views
     // This should be the root URL of your application.
     // It's used to correctly build URLs for routing.
-    basePath: "http://localhost/devehoper/",
+    basePath: "https://devehoper.com/", // Base path for the application, used for routing and API calls
     // IMPORTANT: Change the basePath to your live domain when deploying to production!
     // Example: "https://www.yourwebsite.com/"
-    backendPath: "http://localhost/devehoperapi/public/v1/", // Backend path for API calls
+    backendPath: "https://api.devehoper.com/v1/", // Backend path for API calls
     //Begin Of Styling configs
     defaultTheme: "", // Default theme
     themes: ["theme-default", "theme-dark"], // Available themes

@@ -164,17 +164,12 @@ async loadController(controller, method, args) {
   }
 
   try {
-    // Use dynamic import directly. It handles both fetching and executing the module.
-    // The path is relative to the current file (app.js), so '../controller/' is correct.
     const module = await import(`../controller/${controller}.js`);
-    
-    // ES modules export a `default` property for the default export.
     const ControllerClass = module.default;
     const controllerInstance = new ControllerClass();
-    
+
     this.controllerCache[controller] = controllerInstance;
     this.executeMethod(controllerInstance, method, args);
-    
   } catch (error) {
     app.error(`Error loading controller: ${controller}`, error);
   }
@@ -381,12 +376,7 @@ async loadController(controller, method, args) {
       }
 
       if (userConfig.useVue ?? config.useVue) {
-        //Controller.loadJs(bp + "app/src/js/lib/vue.js", "module").then(() => {
           Controller.loadJs(bp + "app/src/js/lib/vue.js").then(() => {
-          //https://unpkg.com/vue@3/dist/vue.global.js
-          // import(bp + "app/services/vueHost.js").then(({ default: VueHost }) => {
-          //   app.singletons["vue"] = new VueHost();
-          // });
         });
       }
 

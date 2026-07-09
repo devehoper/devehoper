@@ -14,12 +14,15 @@ class UserModel extends Model {
     super();
     this.name = name || "";
     this.email = email || "";
+    this.loginToken = null;
+    this.restoreFromLocalData('UserModel');
   }
 
   clearLocalData() {
     this.name = null;
     this.email = null;
     this.loginToken = null;
+    Model.clearLocalData();
   }
 
   // validateResponse(actual, expected) {
@@ -46,16 +49,16 @@ class UserModel extends Model {
     return {
       name: this.name,
       email: this.email,
+      loginToken: this.loginToken,
     };
   }
 
   fromJson(data) {
-    // this.name = data?.user?.username || "";
-    // this.email = data?.user?.email || "";
-    // this.loginToken = data?.access_token || "";
-    this.name = data.user.username;
-    this.email = data.user.email;
-    this.loginToken = data.access_token;
+    const userData = data?.user || data || {};
+    this.name = userData.username || userData.name || this.name || "";
+    this.email = userData.email || this.email || "";
+    this.loginToken = data?.access_token || data?.loginToken || this.loginToken || null;
+    return this;
   }
 
   isAuthenticated() {
@@ -64,6 +67,14 @@ class UserModel extends Model {
 }
 
 app.models["UserModel"] = new UserModel();
+
+if (typeof window !== "undefined") {
+  window.UserModel = UserModel;
+}
+
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = { UserModel };
+}
 
 //Usage example
 // const userModel = app.models["UserModel"];

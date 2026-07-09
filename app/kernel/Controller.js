@@ -89,7 +89,7 @@ async loadViewContent({
 
         // Call the function to trigger a background cache update for the primary view (urls[0]).
         // This updates the cached copy for the user's *next* visit without slowing down the *current* load.
-        this.requestManualCacheUpdate(urls[0]); 
+        this.requestManualCacheUpdate(urls[0]);
 
     } catch (error) {
         console.error("View Loading Failed:", error.message);
@@ -274,12 +274,37 @@ loadView(viewUrl, cssUrl = null, jsUrl = null, append = true, template = true, s
     modelName = modelName.indexOf(".js") === -1 ? modelName : modelName.slice(0,modelName.length -3);
     return new Promise((resolve, reject) => {
       if (typeof app.models[modelName] !== 'undefined') {
+        if (typeof app.models[modelName].restoreFromLocalData === 'function') {
+          app.models[modelName].restoreFromLocalData();
+        }
+        //Save Model cache using localStorage if userConfig.useCache is true
+        if (userConfig.useCache ?? config.useCache) {
+          const modelData = app.models[modelName].toJson();
+          localStorage.setItem(`model_${modelName}`, JSON.stringify(modelData));
+          Model.setLocalData(modelData);
+        }
         return resolve(app.models[modelName]);
       }
       const script = document.createElement("script");
       script.src = `app/model/${modelName}.js`;
       script.onload = () => {
         if (app.models[modelName]) {
+          try {
+            // If there's a cached model-specific payload, restore it explicitly
+            const cached = localStorage.getItem(`model_${modelName}`);
+            if (cached) {
+              const parsed = JSON.parse(cached);
+              if (typeof app.models[modelName].fromJson === 'function') {
+                app.models[modelName].fromJson(parsed);
+              } else if (typeof app.models[modelName].restoreFromLocalData === 'function') {
+                app.models[modelName].restoreFromLocalData();
+              }
+              // Also merge into the global local storage key for backward compatibility
+              Model.setLocalData(parsed);
+            }
+          } catch (e) {
+            app.warn(`Failed to restore cached model ${modelName}: ${e.message}`);
+          }
           resolve(app.models[modelName]);
         } else {
           const errorMsg = `Model ${modelName} is not defined after loading`;

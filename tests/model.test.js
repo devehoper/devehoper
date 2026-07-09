@@ -20,12 +20,17 @@ describe("Model Class", () => {
       },
     };
 
+    global.userConfig = { localStorage: "devehoper", backendPath: "" };
+    global.config = { localStorage: "devehoper" };
+    global.app = { models: {} };
+
     // Load the Model class
-    Model = require("../app/model/Model.js").Model;
+    Model = require("../app/kernel/Model.js").Model;
   });
 
   beforeEach(() => {
     localStorage.clear();
+    global.app.models = {};
   });
 
   test("should set and get local data", () => {
@@ -55,5 +60,16 @@ describe("Model Class", () => {
     const rules = { email: { email: true } };
     const errors = new Model().validateData(formData, rules);
     expect(errors.email).toBe("Invalid email format");
+  });
+
+  test("should restore user model data from local storage", () => {
+    Model.setLocalData({ name: "Alice", email: "alice@example.com", loginToken: "token-123" });
+    delete require.cache[require.resolve("../app/model/UserModel.js")];
+    require("../app/model/UserModel.js");
+
+    const userModel = app.models["UserModel"];
+    expect(userModel.name).toBe("Alice");
+    expect(userModel.email).toBe("alice@example.com");
+    expect(userModel.loginToken).toBe("token-123");
   });
 });

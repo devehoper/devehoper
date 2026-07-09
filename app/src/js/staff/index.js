@@ -2,7 +2,7 @@ const { createApp, ref } = Vue
 
   createApp({
     setup() {
-      const message = ref('Hello vue!')
+      const message = ref(app.models.UserModel.name)
       return {
         message
       }

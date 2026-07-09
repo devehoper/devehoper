@@ -225,6 +225,34 @@ class Model {
     validate(formData, rules) {
         return Model.validateData(formData, rules);
     }
+
+    restoreFromLocalData(modelName) {
+        // If a model-specific cache exists, prefer it
+        let data = {};
+        try {
+            if (typeof modelName === 'string') {
+                const cached = localStorage.getItem(`model_${modelName}`);
+                if (cached) {
+                    data = JSON.parse(cached);
+                }
+            }
+        } catch (e) {
+            // ignore parsing errors and fall back
+        }
+
+        if (!data || Object.keys(data).length === 0) {
+            data = Model.getLocalData();
+        }
+
+        if (data && typeof data === 'object') {
+            Object.entries(data).forEach(([key, value]) => {
+                if (typeof this[key] !== 'undefined') {
+                    this[key] = value;
+                }
+            });
+        }
+        return this;
+    }
     
 
     //Example usage:
@@ -258,8 +286,12 @@ class Model {
     // } else {
     //     app.log("Form is valid! ✅");
     // }    
-    
-    toJson() {
-        
-    }
+}
+
+if (typeof window !== "undefined") {
+    window.Model = Model;
+}
+
+if (typeof module !== "undefined" && module.exports) {
+    module.exports = { Model };
 }

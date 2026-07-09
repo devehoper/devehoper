@@ -13,11 +13,12 @@ export default class AuthController extends Controller {
      * The index() method is required by the framework but can be empty.
      */
     index() {
-        if (!app.models["UserModel"].loginToken) {
-            // If not authenticated, redirect to home page immediately and stop further execution, ensuring correct hash format
-            window.location.hash = "#HomeController?index=";
-            return;
-        }
+        // if (!app.models["UserModel"].loginToken) {
+        //     // If not authenticated, redirect to home page immediately and stop further execution, ensuring correct hash format
+        //     //@todo create a no permition route
+        //     window.location.hash = "#HomeController?index=";
+        //     return;
+        // }
 
         // If authenticated, proceed with loading the staff view and updating the header
         super.loadView("app/view/staff/index.html", "app/src/css/pages/staff/index.css", "app/src/js/staff/index.js").then(() => {

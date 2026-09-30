@@ -12,7 +12,7 @@ const userConfig = {
 
     useVue: true,
 
-    debugMode: false, // Enable or disable debug mode
+    debugMode: true, // Enable or disable debug mode
     useCache: true, // Enable or disable caching, dont change it, not full implemented for false case (V=0.1)
     enableCacheClearing: false, // Enable cache clearing button in debug mode
 

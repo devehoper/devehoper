@@ -226,7 +226,7 @@ class Model {
         return Model.validateData(formData, rules);
     }
 
-    restoreFromLocalData(modelName) {
+   restoreFromLocalData(modelName) {
         // If a model-specific cache exists, prefer it
         let data = {};
         try {

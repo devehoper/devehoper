@@ -8,6 +8,22 @@ export default class AuthController extends Controller {
         });
     }
 
+    getUser() {
+
+        app.request(
+            {
+                url: userConfig.backendPath + "me",
+                method: "GET",
+                headers: {
+                    'Authorization': 'Bearer ' + app.models.UserModel.loginToken
+                },
+                success: (response) => {
+                    return response.data;
+                }
+            }
+        ,true);
+    }
+
     /**
      * This controller doesn't load a main view, it only shows a modal.
      * The index() method is required by the framework but can be empty.
@@ -95,6 +111,18 @@ export default class AuthController extends Controller {
                             $(document).trigger('login-success');
                             window.location.hash = "#StaffController?index";
                         },
+                        error: (response) => {
+                            if(response.status === 400) {
+                                const errorData = response.responseJSON;
+                                if (errorData ) {
+                                    Model.displayValidationErrors(errorData.messages, 'invalid-feedback', 'signup-');
+                                } else {
+                                    app.error("An unknown error occurred during registration.");
+                                }
+                            } else {
+                                app.error("An error occurred during registration. Please try again later.");
+                            }
+                        }
                     }, true);
                 }
             });
